@@ -1,0 +1,16 @@
+mixin pagination(page, pages, count, selectedType)
+    .pagination
+        .pagination__prev
+            if page > 1
+                if selectedType
+                    a(href=`/equipments/page/${page-1}?type=${selectedType}`) Prev
+                else
+                    a(href=`/equipments/page/${page-1}`) Prev
+        .pagination__text
+            p Page #{page} of #{pages} - #{count} total results
+        .pagination__next
+            if page < pages
+                if selectedType
+                    a(href=`/equipments/page/${parseFloat(page)+1}?type=${selectedType}`) Next
+                else
+                    a(href=`/equipments/page/${parseFloat(page)+1}`) Next

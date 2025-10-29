@@ -1,0 +1,98 @@
+extends layout
+include mixins/_reviewForm
+include mixins/_review
+
+block content
+  .container.my-4
+  
+    // HEADER
+    .card.mb-3.shadow-sm
+      .card-body
+        h2.text-primary.mb-3 #{equipment.name}
+        p.text-muted.mb-3
+          span(style="margin-right:6px;") 📍
+          | #{equipment.location}
+
+        if equipment.schedule
+          p.text-secondary.mb-3
+            span(style="margin-right:6px;") ⏰
+            | #{equipment.schedule}
+
+        if equipment.phone
+          p.text-secondary.mb-3
+            span(style="margin-right:6px;") ☎️
+            | #{equipment.phone}
+
+        if equipment.municipal && equipment.municipal.toLowerCase() === 'yes'
+          span.badge.bg-secondary.mt-2 Municipal
+
+    // DETAILS SECTION
+    .card.mb-3.shadow-sm
+      .card-body
+        h5.text-secondary.mb-3 Details
+        dl.row
+          dt.col-sm-4 Type
+          dd.col-sm-8 #{equipment.type}
+
+          dt.col-sm-4 Entity
+          dd.col-sm-8 #{equipment.entity_name}
+
+          dt.col-sm-4 Code
+          dd.col-sm-8 #{equipment.entity_code}
+
+          if equipment.district
+            dt.col-sm-4 District
+            dd.col-sm-8 #{equipment.district}
+
+    // MAP SECTION
+    .card.mb-3.shadow-sm
+      .card-body
+        h5.text-secondary.mb-3 Location Map
+        #map(style="width: 100%; height: 300px; border-radius: 10px;")
+
+    // REVIEWS SECTION
+    .card.shadow-sm.mt-4
+      .card-body
+        h5.text-secondary.mb-3 Reviews
+        if user
+          .no-gutters.row
+            .pt-3.lg-2.col-lg-12
+              .card
+                .card-body
+                  +reviewForm(equipment)
+              .mb-3
+        else
+          p.text-muted.fst-italic Login to write your review.
+            .mb-3
+        if equipment.reviews && equipment.reviews.length > 0
+          - const avg = Math.round(equipment.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / equipment.reviews.length * 10) / 10
+          h5.mb-0.mt-3
+            span(style="margin-right:6px;") Average rating:
+            | #{avg} / 5 ⭐ out of #{equipment.reviews.length} reviews
+          each r in equipment.reviews
+            .no-gutters.row
+              .pt-3.lg-2.col-lg-12
+                .card
+                  .card-body
+                    +review(r)
+        else
+          p.text-muted.fst-italic No reviews yet. Be the first to write one!
+
+  // Leaflet CSS + JS
+  link(rel="stylesheet", href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css")
+  script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js")
+
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const lat = #{equipment.latitude || 0};
+      const lon = #{equipment.longitude || 0};
+      const map = L.map('map').setView([lat, lon], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.marker([lat, lon]).addTo(map)
+        .bindPopup(`${equipment.name}`)
+        .openPopup();
+    });

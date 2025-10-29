@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .container
+        h2 You rated #{reviews.length} Equipments
+        table.table
+            thead
+                tr
+                    th(scope="col") #
+                    th(scope="col") NAME
+                    th(scope="col") TYPE
+                    th(scope="col") RATING
+                    th(scope="col") COMMENT
+                    th(scope="col") CREATED
+                    th(scope="col") EDIT
+            tbody
+                each review, i in reviews
+                    tr
+                        th(scope="row") #{i + 1}
+                        td
+                            a(href=`/equipment/${review.equipment._id}`)= review.equipment.name
+                        td #{review.equipment.type}
+                        td #{review.rating} / 5
+                        td #{review.text}
+                        td #{utils.moment(review.created).fromNow()}
+                        td
+                            a.btn.btn-primary.flex-grow-1(href=`/reviews/edit/${review._id}`, style="position:relative; z-index:10;") →

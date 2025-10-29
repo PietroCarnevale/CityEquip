@@ -1,0 +1,62 @@
+doctype html
+html
+    head
+        title #{title}
+        link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href="/icons/font-awesome/css/font-awesome.min.css")
+        link(rel="stylesheet", href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css")
+        link(rel='icon', href='data:;base64,iVBORw0KGgo=')
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+    body
+        block header
+            nav.navbar.navbar-expand-sm.bg-body-tertiary(data-bs-theme="dark")
+                div.container-fluid
+                    a.navbar-brand(href='#')
+                        img(src="/icons/logo.svg" alt="" width="200" height="60" title="Bootstrap")
+                    button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+                        span.navbar-toggler-icon
+                    .collapse.navbar-collapse#navbarNav
+                        ul.navbar-nav
+                            each item in menu
+                                li.nav-item.px-2
+                                    a.nav-link(href=`${item.slug}`)
+                                        span #{item.title}
+                        .form-inline.search.ms-auto
+                            input.form-control.mr-sm-2(type="text" placeholder="Search..." name="search")
+                            .search__results
+                        ul.navbar-nav
+                            if user
+                                li.nav-item
+                                    a.nav-link(href='/account')
+                                        i.fa.fa-user-circle(style="padding-right:6px")
+                                        span #{user.name}
+                                li.nav-item
+                                    a.nav-link(href='/logout')
+                                        i.fa.fa-sign-out(style="padding-right:6px")
+                                        |Log Out
+                            else
+                                li.nav-item
+                                    a.nav-link(href='/register')
+                                        i.fa.fa-user(style="padding-right:6px")
+                                        |Sign Up
+                                li.nav-item
+                                    a.nav-link(href='/login')
+                                        i.fa.fa-sign-in(style="padding-right:6px")
+                                        |Login
+
+        .content
+            block messages
+                .flashes
+                    if flashes.length
+                        each flash in flashes
+                            .alert(class=`${flash.type}`)
+                                != flash.message
+                                span.closebtn(onclick="this.parentElement.remove()") &times;
+
+            block content
+
+            
+        block scripts
+            script(src="/dist/bootstrap.bundle.min.js")
+            script(src="/dist/app.bundle.js")

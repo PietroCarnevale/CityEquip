@@ -1,0 +1,66 @@
+extends layout
+include mixins/_equipmentCard
+include mixins/_pagination
+
+block content
+  .container.my-4
+    // === TITLE & FILTER BUTTON ===
+    .d-flex.justify-content-between.align-items-center.mb-3
+      h2.mb-0 Equipments
+      button#sidebarToggle.btn.btn-outline-dark(type="button") ☰ Filter by Type
+
+    // === SIDEBAR ===
+    #sidebar
+      .sidebar-header
+        h4 Filter by Type
+        button#closeSidebar.btn-close(type="button")
+      ul.sidebar-list
+        li.mt-2
+          a.sidebar-link(href="/equipments") Show All
+        each item in types
+          li.d-flex.justify-content-between.align-items-center.mb-1
+            a.sidebar-link(href=`/equipments?type=${item.type}`)= item.type
+            if item.count
+              span.badge.bg-primary.ms-2 #{item.count}
+
+
+    // === EQUIPMENT LIST ===
+    if selectedType
+      p.text-muted.mb-3 Showing equipments of type:
+        strong.text-dark  #{selectedType}
+
+    if equipments.length
+      +pagination(page, pages, count, selectedType)
+      .equipments
+        each equipment in equipments
+          +equipmentCard(equipment)
+      +pagination(page, pages, count, selectedType)
+    else
+      p.text-muted No equipment available.
+
+  // === SIDEBAR SCRIPT ===
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.getElementById('sidebarToggle');
+      const closeBtn = document.getElementById('closeSidebar');
+
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', () => {
+          sidebar.classList.toggle('active');
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          sidebar.classList.remove('active');
+        });
+      }
+
+      // Chiudi cliccando fuori
+      document.addEventListener('click', (e) => {
+        if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target.id !== 'sidebarToggle') {
+          sidebar.classList.remove('active');
+        }
+      });
+    });

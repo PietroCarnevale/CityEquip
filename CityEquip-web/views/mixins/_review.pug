@@ -1,0 +1,12 @@
+mixin review(review)
+    if review.rating > 3
+        span.badge.bg-success=`Rated ${review.rating} out of 5 stars`
+    else if review.rating === 3
+        span.badge.bg-secondary=`Rated ${review.rating} out of 5 stars`
+    else
+        span.badge.bg-danger=`Rated ${review.rating} out of 5 stars`
+    span.pull-right= utils.moment(review.created).fromNow()
+    div.pt-3
+        p.mb-0
+            strong=`${review.author.name}`
+        p.mb-0= review.text

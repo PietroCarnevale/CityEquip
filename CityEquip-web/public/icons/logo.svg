@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <title>CityEquip Logo Creativo Light</title>
+  <desc>Logo CityEquip con pin color terracotta, onda ocra e testo chiaro con font fluido</desc>
+
+  <!-- Pin stilizzato -->
+  <path d="M80 20
+           C50 20 30 45 30 70
+           C30 110 80 170 80 170
+           C80 170 130 110 130 70
+           C130 45 110 20 80 20 Z"
+        fill="#e07a5f"/>
+  
+  <!-- Onde -->
+  <path d="M50 100 C65 90 95 110 115 100"
+        stroke="#f2cc8f" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- Testo -->
+  <text x="180" y="110"
+        font-family="Quicksand, Raleway, Poppins, sans-serif"
+        font-size="60"
+        font-weight="500"
+        fill="#f7f7f7">
+    CityEquip
+  </text>
+</svg>

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .container
+        h2 Your Top #{topReviews.length} Equipments
+        table.table
+            thead
+                tr
+                    th(scope="col") #
+                    th(scope="col") NAME
+                    th(scope="col") TYPE
+                    th(scope="col") RATING
+                    th(scope="col") COMMENT
+            tbody
+                each review, i in topReviews
+                    tr
+                        th(scope="row") #{i + 1}
+                        td
+                            a(href=`/equipment/${review.equipment._id}`)= review.equipment.name
+                        td #{review.equipment.type}
+                        td #{review.rating}
+                        td #{review.text}

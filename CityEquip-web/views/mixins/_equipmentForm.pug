@@ -1,0 +1,49 @@
+mixin equipmentForm(equipment = {})
+
+  form(action=`/add/${equipment._id || ''}` method="POST")
+    .mb-3
+      label.form-label(for="name") Name
+      input.form-control(type="text" id="name" name="name" value=equipment.name required)
+
+    .mb-3
+      label.form-label(for="schedule") Schedule
+      input.form-control(type="text" id="schedule" name="schedule" value=equipment.schedule)
+
+    .mb-3
+      label.form-label(for="type") Type
+      input.form-control(type="text" id="type" name="type" value=equipment.type required)
+
+    .mb-3
+      .form-check
+        input.form-check-input(type="checkbox" id="municipal" name="municipal" value="Yes" checked=(equipment.municipal === 'Yes' || equipment.municipal === true))
+        label.form-check-label(for="municipal") Municipal (Yes/No)
+
+    .mb-3
+      label.form-label(for="latitude") Latitude
+      input.form-control(type="number" step="any" id="latitude" name="latitude" value=equipment.latitude required)
+
+    .mb-3
+      label.form-label(for="longitude") Longitude
+      input.form-control(type="number" step="any" id="longitude" name="longitude" value=equipment.longitude required)
+
+    .mb-3
+      label.form-label(for="location") Location
+      input.form-control(type="text" id="location" name="location" value=equipment.location required)
+
+    .mb-3
+      label.form-label(for="phone") Phone
+      input.form-control(type="tel" id="phone" name="phone" value=equipment.phone)
+
+    .mb-3
+      label.form-label(for="district") District
+      input.form-control(type="text" id="district" name="district" value=equipment.district)
+
+    .mb-3
+      label.form-label(for="entity_code") Entity Code
+      input.form-control(type="text" id="entity_code" name="entity_code" value=equipment.entity_code required)
+
+    .mb-3
+      label.form-label(for="entity_name") Entity Name
+      input.form-control(type="text" id="entity_name" name="entity_name" value=equipment.entity_name required)
+
+    button.btn.btn-primary(type="submit") Save

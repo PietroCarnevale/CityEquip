@@ -1,0 +1,40 @@
+mixin equipmentCard(equipment = {})
+  .equipment.card.equipment-card.shadow-sm.p-3.d-flex.flex-column(position="relative")
+    .card-body.flex-grow-1
+      a.stretched-link(href=`/equipment/${equipment._id}`)
+
+      h5.card-title.mb-1
+        | #{equipment.name}
+
+      .d-flex.align-items-center.mb-3
+        p.text-muted.mb-0 #{equipment.type || 'Type not available'}
+        if equipment.municipal && equipment.municipal.toLowerCase() === 'yes'
+          span.badge.bg-secondary.ms-auto Municipal
+
+      p.card-text.small.text-secondary.mb-1
+        if equipment.location
+          | 📍 #{equipment.location}
+        else
+          | 📍 N/A
+
+      // --- SCHEDULE ---
+      p.card-text.small.text-secondary.mb-1
+        if equipment.schedule
+          | ⏰ #{equipment.schedule}
+        else
+          | ⏰ N/A
+
+      // --- PHONE ---
+      p.card-text.small.text-secondary
+        if equipment.phone
+          | ☎️ #{equipment.phone}
+        else
+          | ☎️ N/A
+
+    // --- ACTION BUTTONS ---
+    if user && (equipment.owner.toString() === user._id.toString())
+      .d-flex.gap-2.pt-3
+        a.btn.btn-primary.flex-grow-1(href=`/equipments/${equipment._id}/edit`, style="position:relative; z-index:10;") EDIT
+        form(action=`/equipments/${equipment._id}/delete`, method="POST", style="margin:0; position:relative; z-index:10;")
+          button.btn.btn-danger.btn-sm(type="submit", style="width:100%; height:100%; position:relative; z-index:10;", onclick="return confirm('Are you sure you want to delete this equipment?')") DELETE
+

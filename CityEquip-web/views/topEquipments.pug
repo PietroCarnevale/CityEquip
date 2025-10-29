@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .container
+        h2 Top #{topEquipments.length} Equipments
+        table.table
+            thead
+                tr
+                    th(scope="col") #
+                    th(scope="col") NAME
+                    th(scope="col") TYPE
+                    th(scope="col") REVIEWS
+                    th(scope="col") AVERAGE RATING
+            tbody
+                each equipment, i in topEquipments
+                    tr
+                        th(scope="row") #{i + 1}
+                        td
+                            a(href=`/equipment/${equipment._id}`)= equipment.name
+                        td #{equipment.type}
+                        td #{equipment.reviews.length}
+                        td #{Math.round(equipment.averageRating * 10) / 10} / 5

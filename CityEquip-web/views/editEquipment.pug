@@ -1,0 +1,7 @@
+extends layout
+
+include mixins/_equipmentForm
+
+block content
+    h2 #{title}
+    +equipmentForm(equipment)

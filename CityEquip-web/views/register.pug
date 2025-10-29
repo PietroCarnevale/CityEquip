@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .container
+        h2 #{title}
+        form(action='/register' method='POST' enctype='application/x-www-form-urlencoded')
+            .mb-3
+                label(for="name" class="form-label") Name
+                input(class="form-control" type="text" name="name" value=body ? body.name : '' required)
+            .mb-3
+                label(for="role" class="form-label") Role
+                .form-check
+                    input#role-user.form-check-input(type="radio" name="role" value="user" checked=body? body.role==='user' : true)
+                    label.form-check-label(for="role-user") User
+                .form-check
+                    input#role-admin.form-check-input(type="radio" name="role" value="administrator" checked=body? body.role==='administrator' : false)
+                    label.form-check-label(for="role-admin") Administrator
+            .mb-3
+                label(for="email" class="form-label") Email
+                input(class="form-control" type="email" name="email" value=body ? body.email : '' required)
+            .mb-3
+                label(for="password" class="form-label") Password
+                input(class="form-control" type="password" name="password")
+            .mb-3
+                label(for="password-confirm" class="form-label") Confirm Password
+                input(class="form-control" type="password" name="password-confirm")
+            button(type="submit" class="btn btn-primary") Register

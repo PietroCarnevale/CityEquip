@@ -1,0 +1,12 @@
+div.wrapper 
+
+    p.hello Hello, my name is #{name}. My dog's name is #{dog}
+    span#identificator uso di identificatori
+    div 
+        img(src="https://picsum.photos/200" alt=`whatever ${dog}`)
+
+h2
+    | Hello 
+    em #{name}
+    - const upDog = dog.toUpperCase();
+    p.classy Hello #{upDog}
