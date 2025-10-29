@@ -22,7 +22,7 @@ exports.getReviewsByUser = async (req, res, next) => {
 exports.createReview = async (req, res, next) => {
     try {
         const reviewData = {
-            equipment: req.params._id,
+            equipment: req.params.id,
             author: req.user._id,
             text: req.body.text,
             rating: req.body.rating
