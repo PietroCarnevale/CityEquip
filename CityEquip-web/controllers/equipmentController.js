@@ -1,10 +1,6 @@
 const { addFlash } = require('./helpers/flash');
 const api = require('../services/apiService');
 
-exports.homePage = (req, res, next) => {
-    res.redirect('/equipments');
-};
-
 exports.getEquipments = async (req, res, next) => {
     try {
         const type = req.query.type || '';

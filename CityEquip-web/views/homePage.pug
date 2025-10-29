@@ -1,0 +1,35 @@
+extends layout
+include mixins/_equipmentCard
+
+block content
+  .container.mt-3
+    // ===== Hero Section =====
+    .text-center.py-3
+      h1.display-4.text-primary Welcome to CityEquip
+      p.lead.text-muted Find and explore public services and facilities.
+      if !user
+        a.btn.btn-primary.btn-lg.mt-1(href="/login") Log In
+        a.btn.btn-outline-secondary.btn-lg.mt-1.ms-2(href="/register") Register
+      else
+        a.btn.btn-success.btn-lg.mt-1(href="/equipments") Explore Equipments
+
+    hr.my-4
+
+    // ===== Quick Stats or Highlights =====
+    .row.text-center
+      .col-md-4.mb-4
+        h3.display-6 #{stats.equipmentsCount}
+        p.text-muted Equipments in the database
+      .col-md-4.mb-4
+        h3.display-6 #{stats.reviewsCount}
+        p.text-muted Reviews submitted
+      .col-md-4.mb-4
+        h3.display-6 #{stats.typesCount}
+        p.text-muted Types of services
+
+    // ===== Featured Section =====
+    h2.text-center.mb-4 Top Rated Equipments
+    .row.justify-content-center
+      each equipment in topEquipments
+        .col-md-4.mb-4
+          +equipmentCard(equipment)

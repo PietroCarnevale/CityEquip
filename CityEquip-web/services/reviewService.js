@@ -26,3 +26,7 @@ exports.updateReview = async (id, userId, updateData) => {
         runValidators: true
     }).populate('equipment', 'name').exec();
 };
+
+exports.getReviewCount = async () => {
+    return Review.countDocuments();
+};

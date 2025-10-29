@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const homeController = require('../controllers/homeController');
 const equipmentController = require('../controllers/equipmentController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
@@ -7,7 +8,8 @@ const expressValidator = require('../controllers/helpers/expressValidator');
 const reviewController = require('../controllers/reviewController');
 const { catchErrors } = require('../errors/errorHandlers')
 
-router.get('/', equipmentController.homePage);
+//HOME
+router.get('/', homeController.homePage);
 
 //EQUIPMENTS
 router.get('/equipments/', equipmentController.getEquipments);
